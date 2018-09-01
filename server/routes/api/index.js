@@ -1,3 +1,5 @@
+import articlesRouter from './articles';
+
 const router = require('express').Router();
 
 router.use('/', require('./users'));
@@ -14,5 +16,7 @@ router.use((err, req, res, next) => {
 
   return next(err);
 });
+
+router.use('/articles', articlesRouter);
 
 module.exports = router;
