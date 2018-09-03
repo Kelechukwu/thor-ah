@@ -4,13 +4,15 @@
   "description": "A Social platform for the creative at heart",
   "main": "index.js",
   "scripts": {
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "lint": "eslint ./ --fix",
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
-    "test": "npm run migrate && mocha --compilers js:babel-register ./server/tests/* --exit --no-deprecation",
+    "test": "npm run migrate && nyc mocha --compilers js:babel-register ./server/tests/* --exit --no-deprecation",
     "start": "node index.js",
     "start:dev": "nodemon --watch server --exec babel-node ./index.js",
-    "seed": "sequelize db:seed:all"
+    "seed": "sequelize db:seed:all",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "author": "Andela Simulations Programme",
   "license": "MIT",
@@ -31,6 +33,7 @@
     "method-override": "^2.3.10",
     "methods": "^1.1.2",
     "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
